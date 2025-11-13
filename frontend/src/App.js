@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Package, Users, TrendingUp, Plus, Edit2, Trash2, X } from 'lucide-react';
+import { ShoppingCart, Package, Users, TrendingUp, Plus, Edit2, Trash2, X, BarChart3, DollarSign } from 'lucide-react';
 
 const API_URL = 'http://localhost:8000';
 
@@ -235,6 +235,24 @@ export default function FitnessStore() {
         <div className="container" style={{ padding: 0 }}>
           <div style={{ display: 'flex', gap: '0.25rem' }}>
             <button
+              onClick={() => setActiveView('dashboard')}
+              style={{
+                padding: '1rem 1.5rem',
+                fontWeight: '600',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                backgroundColor: activeView === 'dashboard' ? '#dc2626' : 'white',
+                color: activeView === 'dashboard' ? 'white' : '#374151',
+                transition: 'all 0.2s'
+              }}
+            >
+              <BarChart3 size={20} />
+              Dashboard
+            </button>
+            <button
               onClick={() => setActiveView('productos')}
               style={{
                 padding: '1rem 1.5rem',
@@ -305,7 +323,225 @@ export default function FitnessStore() {
 
       {/* Main */}
       <main className="container" style={{ padding: '2rem 1rem' }}>
-        {activeView === 'productos' && (
+  {activeView === 'dashboard' && (
+    <div>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1.5rem' }}>
+        Dashboard de Ventas
+      </h2>
+      
+      {/* Tarjetas de Estadísticas */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+        gap: '1.5rem',
+        marginBottom: '2rem'
+      }}>
+        {/* Total Ventas */}
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '1.5rem', 
+          borderRadius: '0.5rem', 
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)' 
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Total Ventas</p>
+              <p style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#10b981' }}>
+                ${pedidos.reduce((sum, p) => sum + p.total, 0).toFixed(2)}
+              </p>
+            </div>
+            <DollarSign size={40} style={{ color: '#10b981' }} />
+          </div>
+        </div>
+
+        {/* Total Pedidos */}
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '1.5rem', 
+          borderRadius: '0.5rem', 
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)' 
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Total Pedidos</p>
+              <p style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#3b82f6' }}>
+                {pedidos.length}
+              </p>
+            </div>
+            <ShoppingCart size={40} style={{ color: '#3b82f6' }} />
+          </div>
+        </div>
+
+        {/* Total Productos */}
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '1.5rem', 
+          borderRadius: '0.5rem', 
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)' 
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Total Productos</p>
+              <p style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#8b5cf6' }}>
+                {productos.length}
+              </p>
+            </div>
+            <Package size={40} style={{ color: '#8b5cf6' }} />
+          </div>
+        </div>
+
+        {/* Total Clientes */}
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '1.5rem', 
+          borderRadius: '0.5rem', 
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)' 
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Total Clientes</p>
+              <p style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#f97316' }}>
+                {clientes.length}
+              </p>
+            </div>
+            <Users size={40} style={{ color: '#f97316' }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Secciones Informativas */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+        gap: '1.5rem' 
+      }}>
+        {/* Top 5 Productos */}
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '1.5rem', 
+          borderRadius: '0.5rem', 
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)' 
+        }}>
+          <h3 style={{ fontWeight: 'bold', fontSize: '1.125rem', marginBottom: '1rem', color: '#1f2937' }}>
+            Top 5 Productos
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {productos.slice(0, 5).map((producto, index) => (
+              <div key={producto.id} style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                borderBottom: '1px solid #e5e7eb',
+                paddingBottom: '0.5rem'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ 
+                    backgroundColor: '#fee2e2', 
+                    color: '#dc2626', 
+                    width: '1.5rem', 
+                    height: '1.5rem', 
+                    borderRadius: '9999px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    fontSize: '0.75rem',
+                    fontWeight: 'bold'
+                  }}>
+                    {index + 1}
+                  </span>
+                  <span style={{ fontWeight: '500', fontSize: '0.875rem' }}>{producto.nombre}</span>
+                </div>
+                <span style={{ color: '#dc2626', fontWeight: 'bold' }}>${producto.precio.toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Alertas de Stock */}
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '1.5rem', 
+          borderRadius: '0.5rem', 
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)' 
+        }}>
+          <h3 style={{ fontWeight: 'bold', fontSize: '1.125rem', marginBottom: '1rem', color: '#1f2937' }}>
+            ⚠️ Alertas de Stock Bajo
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {productos.filter(p => p.stock < 20).slice(0, 5).length > 0 ? (
+              productos.filter(p => p.stock < 20).slice(0, 5).map(producto => (
+                <div key={producto.id} style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  alignItems: 'center',
+                  borderBottom: '1px solid #e5e7eb',
+                  paddingBottom: '0.5rem'
+                }}>
+                  <span style={{ fontWeight: '500', fontSize: '0.875rem' }}>{producto.nombre}</span>
+                  <span style={{ 
+                    padding: '0.25rem 0.5rem', 
+                    borderRadius: '0.25rem',
+                    fontSize: '0.75rem',
+                    fontWeight: 'bold',
+                    backgroundColor: producto.stock < 10 ? '#fee2e2' : '#fef3c7',
+                    color: producto.stock < 10 ? '#dc2626' : '#f59e0b'
+                  }}>
+                    Stock: {producto.stock}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p style={{ color: '#6b7280', textAlign: 'center', padding: '2rem 0' }}>
+                ✅ Todos los productos tienen stock suficiente
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Pedidos Recientes */}
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '1.5rem', 
+          borderRadius: '0.5rem', 
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1)' 
+        }}>
+          <h3 style={{ fontWeight: 'bold', fontSize: '1.125rem', marginBottom: '1rem', color: '#1f2937' }}>
+            📦 Últimos Pedidos
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {pedidos.slice(0, 5).map(pedido => (
+              <div key={pedido.id} style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                borderBottom: '1px solid #e5e7eb',
+                paddingBottom: '0.5rem'
+              }}>
+                <div>
+                  <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>Pedido #{pedido.id}</p>
+                  <p style={{ fontSize: '0.75rem', color: '#6b7280' }}>{pedido.cliente_nombre}</p>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <p style={{ fontWeight: 'bold', color: '#dc2626' }}>${pedido.total.toFixed(2)}</p>
+                  <span style={{ 
+                    fontSize: '0.75rem',
+                    padding: '0.125rem 0.375rem',
+                    borderRadius: '0.25rem',
+                    backgroundColor: pedido.estado === 'Completado' ? '#d1fae5' : '#fef3c7',
+                    color: pedido.estado === 'Completado' ? '#065f46' : '#92400e'
+                  }}>
+                    {pedido.estado}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {activeView === 'productos' && (
           <ProductosView
             productos={productos}
             categorias={categorias}
@@ -415,14 +651,15 @@ export default function FitnessStore() {
 // Componente Vista de Productos
 function ProductosView({ productos, categorias, onAdd, onEdit, onDelete, onAddToCart }) {
   const [filtroCategoria, setFiltroCategoria] = useState('todas');
+  const [busqueda, setBusqueda] = useState('');
 
-  const productosFiltrados = filtroCategoria === 'todas'
-    ? productos
-    : productos.filter(p => p.categoria_id === parseInt(filtroCategoria));
+  const productosFiltrados = productos
+    .filter(p => filtroCategoria === 'todas' || p.categoria_id === parseInt(filtroCategoria))
+    .filter(p => p.nombre.toLowerCase().includes(busqueda.toLowerCase()));
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+      <div style={{ display: 'f lex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', margin: 0 }}>Catálogo de Productos</h2>
         <button
           onClick={onAdd}
@@ -442,6 +679,25 @@ function ProductosView({ productos, categorias, onAdd, onEdit, onDelete, onAddTo
           <Plus size={20} />
           Nuevo Producto
         </button>
+      </div>
+      
+      <div style={{ marginBottom: '1.5rem' }}>
+        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#374151', marginBottom: '0.5rem' }}>
+          🔍 Buscar producto:
+        </label>
+        <input
+          type="text"
+          placeholder="Escribe el nombre del producto..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '0.5rem 1rem',
+            border: '1px solid #d1d5db',
+            borderRadius: '0.5rem',
+            fontSize: '1rem'
+          }}
+        />
       </div>
 
       <div style={{ marginBottom: '1.5rem' }}>
@@ -1231,6 +1487,6 @@ function Modal({ type, item, categorias, clientes, onClose, onSaveProducto, onSa
           </div>
         </form>
       </div>
-    </div>
+    </div>  
   );
 }

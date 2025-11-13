@@ -83,18 +83,30 @@ def init_database():
     
     # Insertar productos (al menos 10)
     productos = [
-        ("Whey Protein Isolate", "Proteína aislada de suero de leche, 90% pureza", 4500.00, 50, 1, "https://images.unsplash.com/photo-1593095948071-474c5cc2989d"),
-        ("Whey Protein Concentrate", "Proteína concentrada de suero, sabor chocolate", 3200.00, 75, 1, "https://images.unsplash.com/photo-1579722820308-d74e571900a9"),
-        ("Proteína Vegana", "Mezcla de proteínas vegetales, sin lácteos", 3800.00, 40, 1, "https://images.unsplash.com/photo-1610441009633-9b4e4cbb6d0d"),
-        ("Pre-Workout Extreme", "Fórmula pre-entreno con cafeína y beta-alanina", 2800.00, 60, 2, "https://images.unsplash.com/photo-1526401485004-46910ecc8e51"),
-        ("Creatina Monohidrato", "Creatina pura micronizada, 300g", 1500.00, 100, 4, "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5"),
-        ("BCAA 2:1:1", "Aminoácidos ramificados, 300 cápsulas", 2200.00, 80, 5, "https://images.unsplash.com/photo-1505751172876-fa1923c5c528"),
-        ("Glutamina Pure", "L-Glutamina pura, 500g", 1800.00, 65, 5, "https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6"),
-        ("Multivitamínico Premium", "Complejo vitamínico completo, 60 cápsulas", 1200.00, 90, 3, "https://images.unsplash.com/photo-1550572017-edd951aa8f72"),
-        ("Omega 3 Fish Oil", "Aceite de pescado rico en EPA y DHA", 1600.00, 70, 3, "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2"),
-        ("ZMA Complex", "Zinc, Magnesio y Vitamina B6, 90 cápsulas", 1400.00, 55, 3, "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136"),
-        ("Caseína Micelar", "Proteína de absorción lenta, ideal para la noche", 4200.00, 45, 1, "https://images.unsplash.com/photo-1594737625785-8e8f0e5e5e5e"),
-        ("Beta Alanina", "Mejora resistencia y reduce fatiga muscular", 1700.00, 50, 2, "https://images.unsplash.com/photo-1599932595450-13f1b6e1c8b0")
+        ("Whey Protein Isolate", "Proteína aislada de suero de leche, 90% pureza", 
+         4500.00, 50, 1, "/static/images/whey-isolate.webp"),
+        ("Whey Protein Concentrate", "Proteína concentrada de suero, sabor chocolate", 
+         3200.00, 75, 1, "/static/images/whey-concentrate.webp"),
+        ("Proteína Vegana", "Mezcla de proteínas vegetales, sin lácteos", 
+         3800.00, 40, 1, "/static/images/proteina-vegana.webp"),
+        ("Pre-Workout Extreme", "Fórmula pre-entreno con cafeína y beta-alanina", 
+         2800.00, 60, 2, "/static/images/pre-workout.webp"),
+        ("Creatina Monohidrato", "Creatina pura micronizada, 300g", 
+         1500.00, 100, 4, "/static/images/creatina.webp"),
+        ("BCAA 2:1:1", "Aminoácidos ramificados, 300 cápsulas", 
+         2200.00, 80, 5, "/static/images/bcaa.webp"),
+        ("Glutamina Pure", "L-Glutamina pura, 500g", 
+         1800.00, 65, 5, "/static/images/glutamina.webp"),
+        ("Multivitamínico Premium", "Complejo vitamínico completo, 60 cápsulas", 
+         1200.00, 90, 3, "/static/images/multivitaminico.webp"),
+        ("Omega 3 Fish Oil", "Aceite de pescado rico en EPA y DHA", 
+         1600.00, 70, 3, "/static/images/omega3.webp"),
+        ("ZMA Complex", "Zinc, Magnesio y Vitamina B6, 90 cápsulas", 
+         1400.00, 55, 3, "/static/images/zma.webp"),
+        ("Caseína Micelar", "Proteína de absorción lenta, ideal para la noche", 
+         4200.00, 45, 1, "/static/images/caseina.webp"),
+        ("Beta Alanina", "Mejora resistencia y reduce fatiga muscular", 
+         1700.00, 50, 2, "/static/images/beta-alanina.webp")
     ]
     
     cursor.executemany("""
